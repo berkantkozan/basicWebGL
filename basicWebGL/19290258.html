@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>Computer Graphics First Assignment</title>
+</head>
+<body>
+    <font color="#151B8D"> Şekli sürekli döndürmek ve sürekli dönüşü durdurmak için "ENTER" tuşuna basınız. </font>
+	<font color="#151B8D">Dönüş sırasında "1" tuşu dönüşün yön değiştirmesini sağlar, dönüş yoksa görevi yoktur.</font>
+	<font color="#151B8D">Dönüş sırasında "2" tuşu dönüşün ve (COLORPARTY aktif ise)renk geçişlerinin hızlanmasını sağlar.Dönüş yoksa sadece renk geçişini hızlandırır.</font>
+	<font color="#151B8D">Dönüş sırasında "3" tuşu dönüşün ve (COLORPARTY aktif ise)renk geçişlerinin yavaşlamasını sağlar.Dönüş yoksa sadece renk geçişini yavaşlatır.</font>
+    <font color="#151B8D"> Şekli SAĞA adım adım döndürmek için "ARROWRIGHT" tuşuna basınız. </font>
+	<font color="#151B8D"> Şekli SOLA adım adım döndürmek için "ARROWLEFT" tuşuna basınız. </font>
+	<font color="#151B8D"> Şekli BÜYÜTMEK için "ARROWUP" tuşuna basınız. </font>
+	<font color="#151B8D"> Şekli KÜÇÜLTMEK için "ARROWDOWN" tuşuna basınız. </font>
+	<div style="text-align:center"><button id = "DirectionButton"> START/STOP Rotating</button></div>
+	<div style="text-align:left"><select id="mymenu" size="2">
+		<option value="0">saat yönü(adım adım)</option>
+		<option value="1">saat yönü tersi(adım adım)</option>
+	</select><br></div>
+	<div style="text-align:left">
+ //ÖLÇEKLEME// 1<input id="slide" type="range"	min="1" max="2" step="0.1" value="0.5" />2
+	</div><br>
+	<div style="text-align:left"><button id = "DirectionButton2">bigger</button>
+    <button id = "DirectionButton3">smaller</button>
+	<button id = "DirectionButton4">COLORPARTY</button></div>
+
+    <div style="text-align:center" ><canvas id="glcanvas" width="400" height="400"></canvas></div>
+	
+<script id="vertex-shader" type="x-shader/x-vertex">
+   attribute vec2 vPosition;
+   uniform float theta;
+   uniform float scale;
+   
+   void main() {
+	vec2 rotatedposition;
+	vec2 position;
+    vec2 scaledposition=vPosition * scale;
+	
+	rotatedposition.x = (cos(theta) * scaledposition.x - sin(theta) * scaledposition.y);
+	rotatedposition.y = (sin(theta) * scaledposition.x + cos(theta) * scaledposition.y);
+	
+    position=rotatedposition;
+
+    gl_Position = vec4(position, 0, 1);
+}
+
+
+</script>
+<script id="fragment-shader" type="x-shader/x-fragment"> 
+    precision mediump float;
+    uniform vec4 fColor;
+    void main() {
+        gl_FragColor = fColor;
+   }
+</script>
+
+<script src="../common/initShaders.js"></script>
+<script src="../common/MV.js"></script>
+<script src="../common/webgl-utils.js"></script>
+<script src="19290258.js"></script>
+
+</html>
